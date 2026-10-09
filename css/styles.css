@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-brand-primary: #10b981;
+    --color-brand-hover: #059669;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+dialog {
+    margin: auto;
+    max-height: 90dvh;
+    overflow-y: auto;
+}
+
+button,
+select {
+    cursor: pointer;
+}
+
+html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
+.campo-erro {
+    border-color: #ef4444;
+}
+
+.campo-sucesso {
+    border-color: #10b981;
+}
+
+:focus-visible {
+    outline: 2px solid #FFDC36;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+    }
+}
