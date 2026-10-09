@@ -10,6 +10,8 @@ Dashboard desenvolvido para a disciplina FrontEnd Design, utilizando HTML, Tailw
 
 ## Link do GitHub
 
+[Link do GitHub](https://github.com/kaiohk/techflow)
+
 ## Tecnologias utilizadas
 
 - HTML5
@@ -52,7 +54,6 @@ techflow-dashboard/
 ├── README.md
 ├── package.json
 ├── package-lock.json
-└── vite.config.js
 ```
 
 Os caminhos `css/styles.css` e `js/app.js` seguem o documento do checkpoint. Os arquivos de configuração do Vite e npm seguem o ambiente utilizado nas aulas. A pasta `node_modules` não acompanha a entrega; ela é criada pelo `npm install`.
