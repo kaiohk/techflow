@@ -1,444 +1,906 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TechFlow - Dashboard</title>
+        <link href="./src/output.css" rel="stylesheet" />
+        <script>
+            const prefereEscuro = window.matchMedia(
+                "(prefers-color-scheme: dark)",
+            ).matches;
+            let temaSalvo = "system";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechFlow - Dashboard</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <script>
-        const prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        let temaSalvo = 'system';
+            try {
+                temaSalvo = localStorage.getItem("theme") || "system";
+            } catch (erro) {
+                temaSalvo = "system";
+            }
 
-        try {
-            temaSalvo = localStorage.getItem('theme') || 'system';
-        } catch (erro) {
-            temaSalvo = 'system';
-        }
+            if (
+                temaSalvo === "dark" ||
+                (temaSalvo !== "light" && temaSalvo !== "dark" && prefereEscuro)
+            ) {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        </script>
+    </head>
 
-        if (temaSalvo === 'dark' || (temaSalvo !== 'light' && temaSalvo !== 'dark' && prefereEscuro)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
-</head>
+    <body
+        class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300"
+    >
+        <a
+            href="#conteudo"
+            class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-slate-900 focus:p-3"
+            >Ir para o conteúdo</a
+        >
 
-<body
-    class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
-    <a href="#conteudo"
-        class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-slate-900 focus:p-3">Ir
-        para o conteúdo</a>
-
-    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-        <nav aria-label="Barra de navegação" class="flex items-center justify-between gap-4 p-4 sm:px-6">
-            <div class="flex items-center gap-3">
-                <button id="abrirMenu" type="button" aria-label="Abrir menu" aria-expanded="false"
-                    aria-controls="sidebar"
-                    class="lg:hidden px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700">☰</button>
-                <a href="./index.html" class="text-xl sm:text-2xl font-bold flex items-center gap-2">
-                    <svg class="w-6 h-6 text-emerald-500 fill-yellow-500" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                    </svg>
-                    TechFlow
-                </a>
-            </div>
-            <div class="relative">
-                <button id="btnUsuario" type="button" aria-expanded="false" aria-controls="menuUsuario"
-                    class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-700">
-                    <span
-                        class="w-8 h-8 rounded-full bg-yellow-500 text-yellow-200 flex items-center justify-center">LS</span>
-                    <span class="hidden sm:block">Leonardo Santos</span>
-                    <span aria-hidden="true">▾</span>
-                </button>
-                <div id="menuUsuario" hidden
-                    class="absolute right-0 top-full mt-2 w-56 p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg z-20">
-                    <p class="font-medium text-sm">Leonardo Santos</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Administrador</p>
-                    <a href="#projetos"
-                        class="block text-sm mt-3 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-2 focus:ring-yellow-500">Ver
-                        projetos</a>
+        <header
+            class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700"
+        >
+            <nav
+                aria-label="Barra de navegação"
+                class="flex items-center justify-between gap-4 p-4 sm:px-6"
+            >
+                <div class="flex items-center gap-3">
+                    <button
+                        id="abrirMenu"
+                        type="button"
+                        aria-label="Abrir menu"
+                        aria-expanded="false"
+                        aria-controls="sidebar"
+                        class="lg:hidden px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700"
+                    >
+                        ☰
+                    </button>
+                    <a
+                        href="./index.html"
+                        class="text-xl sm:text-2xl font-bold flex items-center gap-2"
+                    >
+                        <svg
+                            class="w-6 h-6 text-emerald-500 fill-yellow-500"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                        TechFlow
+                    </a>
                 </div>
-            </div>
-        </nav>
-    </header>
-
-    <div id="fundoMenu" hidden class="fixed inset-0 bg-black/50 z-30 lg:hidden"></div>
-
-    <div class="flex">
-        <aside id="sidebar" aria-label="Menu principal"
-            class="fixed top-0 left-0 bottom-0 z-40 w-56 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700
-            p-4 flex flex-col gap-4 -translate-x-full lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 transition-all duration-300 ease-in-out">
-            <div class="flex items-center justify-between">
-                <h2 class="font-bold text-lg">Menu</h2>
-                <button id="fecharMenu" type="button" aria-label="Fechar menu"
-                    class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed lg:hidden hover:bg-slate-100 dark:hover:bg-slate-700">✕</button>
-            </div>
-            <nav class="flex flex-col gap-2" aria-label="Seções do dashboard">
-                <a href="#conteudo" aria-current="page"
-                    class="p-3 rounded-lg bg-yellow-700 dark:text-yellow-100/40 text-yellow-200 dark:text-yellow-300 font-medium transition duration-200 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500">Dashboard</a>
-                <a href="#projetos"
-                    class="p-3 rounded-lg transition duration-200 hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-2 focus:ring-yellow-500">Projetos</a>
-                <a href="#indicadores"
-                    class="p-3 rounded-lg transition duration-200 hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-2 focus:ring-yellow-500">Indicadores</a>
-            </nav>
-        </aside>
-
-        <main id="conteudo" tabindex="-1" class="w-full min-w-0 max-w-7xl mx-auto p-4 sm:p-6 md:p-8 2xl:p-12">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                <div>
-                    <h1 class="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-bold">Dashboard</h1>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm sm:text-base mt-1">Acompanhamento de projetos,
-                        equipes e tarefas</p>
-                </div>
-                <button id="btnNovoProjeto" type="button"
-                    class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-yellow-600 text-white">Novo
-                    projeto</button>
-            </div>
-
-            <section aria-labelledby="tituloTema" class="mb-6">
-                <h2 id="tituloTema" class="text-sm font-medium mb-2">Tema</h2>
-                <div class="grid grid-cols-3 gap-2 p-1.5 bg-slate-200 dark:bg-slate-950 rounded-xl max-w-sm">
-                    <button id="btnLight" type="button" aria-pressed="false"
-                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">Light</button>
-                    <button id="btnDark" type="button" aria-pressed="false"
-                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">Dark</button>
-                    <button id="btnSystem" type="button" aria-pressed="false"
-                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">System</button>
-                </div>
-                <p id="statusTexto" class="text-xs text-slate-500 dark:text-slate-400 mt-2" role="status"></p>
-            </section>
-
-            <section id="indicadores" aria-label="Indicadores"
-                class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
-                <article
-                    class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md">
-                    <h2 class="text-sm text-slate-500 dark:text-slate-400">Projetos ativos</h2>
-                    <p id="ativos" class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300">4</p>
-                </article>
-                <article
-                    class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md">
-                    <h2 class="text-sm text-slate-500 dark:text-slate-400">Projetos concluídos</h2>
-                    <p id="concluidos" class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300">2</p>
-                </article>
-                <article
-                    class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md">
-                    <h2 class="text-sm text-slate-500 dark:text-slate-400">Tarefas pendentes</h2>
-                    <p id="pendentes" class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300">27</p>
-                </article>
-                <article
-                    class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md">
-                    <h2 class="text-sm text-slate-500 dark:text-slate-400">Equipes</h2>
-                    <p id="equipes" class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300">4</p>
-                </article>
-            </section>
-
-            <section id="projetos" aria-labelledby="tituloProjetos">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                    <h2 id="tituloProjetos" class="text-xl font-bold">Projetos <span id="quantidadeProjetos"
-                            class="text-sm text-slate-500 dark:text-slate-400">(6)</span></h2>
-                    <div class="flex flex-wrap gap-2">
-                        <label class="flex-1 min-w-0">
-                            <span class="sr-only">Pesquisar projetos</span>
-                            <input id="pesquisa" type="search" placeholder="Pesquisar projeto..."
-                                class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                        </label>
-                        <label>
-                            <span class="sr-only">Filtrar status</span>
-                            <select id="filtroStatus"
-                                class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                                <option value="todos">Todos os status</option>
-                                <option value="andamento">Em andamento</option>
-                                <option value="concluido">Concluídos</option>
-                            </select>
-                        </label>
+                <div class="relative">
+                    <button
+                        id="btnUsuario"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="menuUsuario"
+                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-700"
+                    >
+                        <span
+                            class="w-8 h-8 rounded-full bg-yellow-500 text-yellow-200 flex items-center justify-center"
+                            >LS</span
+                        >
+                        <span class="hidden sm:block">Leonardo Santos</span>
+                        <span aria-hidden="true">▾</span>
+                    </button>
+                    <div
+                        id="menuUsuario"
+                        hidden
+                        class="absolute right-0 top-full mt-2 w-56 p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg z-20"
+                    >
+                        <p class="font-medium text-sm">Leonardo Santos</p>
+                        <p
+                            class="text-xs text-slate-500 dark:text-slate-400 mt-1"
+                        >
+                            Administrador
+                        </p>
+                        <a
+                            href="#projetos"
+                            class="block text-sm mt-3 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-2 focus:ring-yellow-500"
+                            >Ver projetos</a
+                        >
                     </div>
                 </div>
-                <div id="listaProjetos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <article data-status="andamento" data-categoria="Design" data-tarefas="8" class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                    rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out
-                    hover:shadow-lg hover:border-yellow-500 md:col-span-2 lg:col-span-1 lg:row-span-2">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span
-                                class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 dark:text-yellow-100/40 px-2 py-1 rounded">Design</span>
-                            <span class="prioridade text-xs text-slate-500 dark:text-slate-400">Prioridade: Alta</span>
-                        </div>
-                        <h3
-                            class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200">
-                            Redesign do site</h3>
-                        <p class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word">Reorganizar as
-                            páginas e melhorar a navegação do site.</p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between gap-2 text-sm mb-2">
-                                <span class="status-projeto">Em andamento</span>
-                                <span class="porcentagem">65%</span>
-                            </div>
-                            <div class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
-                                role="progressbar" aria-label="Progresso de Redesign do site" aria-valuemin="0"
-                                aria-valuemax="100" aria-valuenow="65">
-                                <div class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
-                                    style="width: 65%"></div>
-                            </div>
-                            <p class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2">8 tarefas pendentes</p>
-                        </div>
-                        <div
-                            class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-                            <span class="responsavel">Ana Costa</span>
-                            <span class="prazo">Prazo: 20/11/2026</span>
-                        </div>
-                    </article>
-                    <article data-status="andamento" data-categoria="Desenvolvimento" data-tarefas="10" class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                    rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out
-                    hover:shadow-lg hover:border-yellow-500 ">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span
-                                class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 dark:text-yellow-100/40 px-2 py-1 rounded">Desenvolvimento</span>
-                            <span class="prioridade text-xs text-slate-500 dark:text-slate-400">Prioridade: Alta</span>
-                        </div>
-                        <h3
-                            class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200">
-                            Aplicativo mobile</h3>
-                        <p class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word">Desenvolver as
-                            telas
-                            principais do aplicativo.</p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between gap-2 text-sm mb-2">
-                                <span class="status-projeto">Em andamento</span>
-                                <span class="porcentagem">40%</span>
-                            </div>
-                            <div class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
-                                role="progressbar" aria-label="Progresso de Aplicativo mobile" aria-valuemin="0"
-                                aria-valuemax="100" aria-valuenow="40">
-                                <div class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
-                                    style="width: 40%"></div>
-                            </div>
-                            <p class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2">10 tarefas pendentes</p>
-                        </div>
-                        <div
-                            class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-                            <span class="responsavel">Pedro Lima</span>
-                            <span class="prazo">Prazo: 10/12/2026</span>
-                        </div>
-                    </article>
-                    <article data-status="andamento" data-categoria="Marketing" data-tarefas="2" class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                    rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out
-                    hover:shadow-lg hover:border-yellow-500 ">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span
-                                class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 dark:text-yellow-100/40 px-2 py-1 rounded">Marketing</span>
-                            <span class="prioridade text-xs text-slate-500 dark:text-slate-400">Prioridade: Média</span>
-                        </div>
-                        <h3
-                            class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200">
-                            Campanha de divulgação</h3>
-                        <p class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word">Preparar os
-                            materiais de divulgação da empresa.</p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between gap-2 text-sm mb-2">
-                                <span class="status-projeto">Em andamento</span>
-                                <span class="porcentagem">80%</span>
-                            </div>
-                            <div class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
-                                role="progressbar" aria-label="Progresso de Campanha de divulgação" aria-valuemin="0"
-                                aria-valuemax="100" aria-valuenow="80">
-                                <div class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
-                                    style="width: 80%"></div>
-                            </div>
-                            <p class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2">2 tarefas pendentes</p>
-                        </div>
-                        <div
-                            class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-                            <span class="responsavel">Julia Alves</span>
-                            <span class="prazo">Prazo: 05/11/2026</span>
-                        </div>
-                    </article>
-                    <article data-status="concluido" data-categoria="Desenvolvimento" data-tarefas="0" class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                    rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out
-                    hover:shadow-lg hover:border-yellow-500 ">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span
-                                class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 dark:text-yellow-100/40 px-2 py-1 rounded">Desenvolvimento</span>
-                            <span class="prioridade text-xs text-slate-500 dark:text-slate-400">Prioridade: Média</span>
-                        </div>
-                        <h3
-                            class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200">
-                            Portal de atendimento</h3>
-                        <p class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word">Criar um portal
-                            para
-                            atendimento aos clientes.</p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between gap-2 text-sm mb-2">
-                                <span class="status-projeto">Concluído</span>
-                                <span class="porcentagem">100%</span>
-                            </div>
-                            <div class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
-                                role="progressbar" aria-label="Progresso de Portal de atendimento" aria-valuemin="0"
-                                aria-valuemax="100" aria-valuenow="100">
-                                <div class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
-                                    style="width: 100%"></div>
-                            </div>
-                            <p class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2">0 tarefas pendentes</p>
-                        </div>
-                        <div
-                            class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-                            <span class="responsavel">Lucas Melo</span>
-                            <span class="prazo">Prazo: 05/10/2026</span>
-                        </div>
-                    </article>
-                    <article data-status="andamento" data-categoria="Operações" data-tarefas="7" class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                    rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out
-                    hover:shadow-lg hover:border-yellow-500 ">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span
-                                class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 dark:text-yellow-100/40 px-2 py-1 rounded">Operações</span>
-                            <span class="prioridade text-xs text-slate-500 dark:text-slate-400">Prioridade: Baixa</span>
-                        </div>
-                        <h3
-                            class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200">
-                            Treinamento da equipe</h3>
-                        <p class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word">Organizar os
-                            materiais de treinamento dos funcionários.</p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between gap-2 text-sm mb-2">
-                                <span class="status-projeto">Em andamento</span>
-                                <span class="porcentagem">30%</span>
-                            </div>
-                            <div class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
-                                role="progressbar" aria-label="Progresso de Treinamento da equipe" aria-valuemin="0"
-                                aria-valuemax="100" aria-valuenow="30">
-                                <div class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
-                                    style="width: 30%"></div>
-                            </div>
-                            <p class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2">7 tarefas pendentes</p>
-                        </div>
-                        <div
-                            class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-                            <span class="responsavel">Marina Souza</span>
-                            <span class="prazo">Prazo: 15/11/2026</span>
-                        </div>
-                    </article>
-                    <article data-status="concluido" data-categoria="Design" data-tarefas="0" class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                    rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out
-                    hover:shadow-lg hover:border-yellow-500 ">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span
-                                class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 dark:text-yellow-100/40 px-2 py-1 rounded">Design</span>
-                            <span class="prioridade text-xs text-slate-500 dark:text-slate-400">Prioridade: Média</span>
-                        </div>
-                        <h3
-                            class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200">
-                            Identidade visual</h3>
-                        <p class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word">Atualizar o
-                            logotipo
-                            e as cores da empresa.</p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between gap-2 text-sm mb-2">
-                                <span class="status-projeto">Concluído</span>
-                                <span class="porcentagem">100%</span>
-                            </div>
-                            <div class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
-                                role="progressbar" aria-label="Progresso de Identidade visual" aria-valuemin="0"
-                                aria-valuemax="100" aria-valuenow="100">
-                                <div class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
-                                    style="width: 100%"></div>
-                            </div>
-                            <p class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2">0 tarefas pendentes</p>
-                        </div>
-                        <div
-                            class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-                            <span class="responsavel">Ana Costa</span>
-                            <span class="prazo">Prazo: 01/10/2026</span>
-                        </div>
-                    </article>
-                </div>
-                <p id="semResultados" hidden
-                    class="text-center p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-                    Nenhum projeto encontrado.</p>
-            </section>
-            <footer
-                class="text-xs text-slate-500 dark:text-slate-400 mt-8 pt-4 border-t border-slate-200 dark:border-slate-700">
-                TechFlow - Checkpoint 5 | FrontEnd Design</footer>
-        </main>
-    </div>
+            </nav>
+        </header>
 
-    <dialog id="modalProjeto" aria-labelledby="tituloModal"
-        class="w-[calc(100%-2rem)] max-w-xl p-5 sm:p-6 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 shadow-xl backdrop:bg-black/50">
-        <div class="flex items-center justify-between gap-3 mb-4">
-            <h2 id="tituloModal" class="text-xl font-bold">Novo projeto</h2>
-            <button id="fecharModal" type="button" aria-label="Fechar formulário"
-                class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700">✕</button>
+        <div
+            id="fundoMenu"
+            hidden
+            class="fixed inset-0 bg-black/50 z-30 lg:hidden"
+        ></div>
+
+        <div class="flex">
+            <aside
+                id="sidebar"
+                aria-label="Menu principal"
+                class="fixed top-0 left-0 bottom-0 z-40 w-56 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-4 -translate-x-full lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 transition-all duration-300 ease-in-out"
+            >
+                <div class="flex items-center justify-between">
+                    <h2 class="font-bold text-lg">Menu</h2>
+                    <button
+                        id="fecharMenu"
+                        type="button"
+                        aria-label="Fechar menu"
+                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed lg:hidden hover:bg-slate-100 dark:hover:bg-slate-700"
+                    >
+                        ✕
+                    </button>
+                </div>
+                <nav
+                    class="flex flex-col gap-2"
+                    aria-label="Seções do dashboard"
+                >
+                    <a
+                        href="#conteudo"
+                        aria-current="page"
+                        class="p-3 rounded-lg bg-yellow-700 text-yellow-200 dark:text-yellow-300 font-medium transition duration-200 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500"
+                        >Dashboard</a
+                    >
+                    <a
+                        href="#projetos"
+                        class="p-3 rounded-lg transition duration-200 hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-2 focus:ring-yellow-500"
+                        >Projetos</a
+                    >
+                    <a
+                        href="#indicadores"
+                        class="p-3 rounded-lg transition duration-200 hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-2 focus:ring-yellow-500"
+                        >Indicadores</a
+                    >
+                </nav>
+            </aside>
+
+            <main
+                id="conteudo"
+                tabindex="-1"
+                class="w-full min-w-0 max-w-7xl mx-auto p-4 sm:p-6 md:p-8 2xl:p-12"
+            >
+                <div
+                    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
+                >
+                    <div>
+                        <h1
+                            class="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-bold"
+                        >
+                            Dashboard
+                        </h1>
+                        <p
+                            class="text-slate-500 dark:text-slate-400 text-sm sm:text-base mt-1"
+                        >
+                            Acompanhamento de projetos, equipes e tarefas
+                        </p>
+                    </div>
+                    <button
+                        id="btnNovoProjeto"
+                        type="button"
+                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-yellow-600 text-white"
+                    >
+                        Novo projeto
+                    </button>
+                </div>
+
+                <section aria-labelledby="tituloTema" class="mb-6">
+                    <h2 id="tituloTema" class="text-sm font-medium mb-2">
+                        Tema
+                    </h2>
+                    <div
+                        class="grid grid-cols-3 gap-2 p-1.5 bg-slate-200 dark:bg-slate-950 rounded-xl max-w-sm"
+                    >
+                        <button
+                            id="btnLight"
+                            type="button"
+                            aria-pressed="false"
+                            class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Light
+                        </button>
+                        <button
+                            id="btnDark"
+                            type="button"
+                            aria-pressed="false"
+                            class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Dark
+                        </button>
+                        <button
+                            id="btnSystem"
+                            type="button"
+                            aria-pressed="false"
+                            class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            System
+                        </button>
+                    </div>
+                    <p
+                        id="statusTexto"
+                        class="text-xs text-slate-500 dark:text-slate-400 mt-2"
+                        role="status"
+                    ></p>
+                </section>
+
+                <section
+                    id="indicadores"
+                    aria-label="Indicadores"
+                    class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8"
+                >
+                    <article
+                        class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md"
+                    >
+                        <h2 class="text-sm text-slate-500 dark:text-slate-400">
+                            Projetos ativos
+                        </h2>
+                        <p
+                            id="ativos"
+                            class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300"
+                        >
+                            4
+                        </p>
+                    </article>
+                    <article
+                        class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md"
+                    >
+                        <h2 class="text-sm text-slate-500 dark:text-slate-400">
+                            Projetos concluídos
+                        </h2>
+                        <p
+                            id="concluidos"
+                            class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300"
+                        >
+                            2
+                        </p>
+                    </article>
+                    <article
+                        class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md"
+                    >
+                        <h2 class="text-sm text-slate-500 dark:text-slate-400">
+                            Tarefas pendentes
+                        </h2>
+                        <p
+                            id="pendentes"
+                            class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300"
+                        >
+                            27
+                        </p>
+                    </article>
+                    <article
+                        class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl transition duration-300 hover:shadow-md"
+                    >
+                        <h2 class="text-sm text-slate-500 dark:text-slate-400">
+                            Equipes
+                        </h2>
+                        <p
+                            id="equipes"
+                            class="text-3xl font-bold mt-2 text-yellow-600 dark:text-yellow-300"
+                        >
+                            4
+                        </p>
+                    </article>
+                </section>
+
+                <section id="projetos" aria-labelledby="tituloProjetos">
+                    <div
+                        class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4"
+                    >
+                        <h2 id="tituloProjetos" class="text-xl font-bold">
+                            Projetos
+                            <span
+                                id="quantidadeProjetos"
+                                class="text-sm text-slate-500 dark:text-slate-400"
+                                >(6)</span
+                            >
+                        </h2>
+                        <div class="flex flex-wrap gap-2">
+                            <label class="flex-1 min-w-0">
+                                <span class="sr-only">Pesquisar projetos</span>
+                                <input
+                                    id="pesquisa"
+                                    type="search"
+                                    placeholder="Pesquisar projeto..."
+                                    class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                                />
+                            </label>
+                            <label>
+                                <span class="sr-only">Filtrar status</span>
+                                <select
+                                    id="filtroStatus"
+                                    class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                                >
+                                    <option value="todos">
+                                        Todos os status
+                                    </option>
+                                    <option value="andamento">
+                                        Em andamento
+                                    </option>
+                                    <option value="concluido">
+                                        Concluídos
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div
+                        id="listaProjetos"
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                    >
+                        <article
+                            data-status="andamento"
+                            data-categoria="Design"
+                            data-tarefas="8"
+                            class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:border-yellow-500 md:col-span-2 lg:col-span-1 lg:row-span-2"
+                        >
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-2"
+                            >
+                                <span
+                                    class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 px-2 py-1 rounded"
+                                    >Design</span
+                                >
+                                <span
+                                    class="prioridade text-xs text-slate-500 dark:text-slate-400"
+                                    >Prioridade: Alta</span
+                                >
+                            </div>
+                            <h3
+                                class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200"
+                            >
+                                Redesign do site
+                            </h3>
+                            <p
+                                class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word"
+                            >
+                                Reorganizar as páginas e melhorar a navegação do
+                                site.
+                            </p>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between gap-2 text-sm mb-2"
+                                >
+                                    <span class="status-projeto"
+                                        >Em andamento</span
+                                    >
+                                    <span class="porcentagem">65%</span>
+                                </div>
+                                <div
+                                    class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
+                                    role="progressbar"
+                                    aria-label="Progresso de Redesign do site"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="65"
+                                >
+                                    <div
+                                        class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
+                                        style="width: 65%"
+                                    ></div>
+                                </div>
+                                <p
+                                    class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2"
+                                >
+                                    8 tarefas pendentes
+                                </p>
+                            </div>
+                            <div
+                                class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400"
+                            >
+                                <span class="responsavel">Ana Costa</span>
+                                <span class="prazo">Prazo: 20/11/2026</span>
+                            </div>
+                        </article>
+                        <article
+                            data-status="andamento"
+                            data-categoria="Desenvolvimento"
+                            data-tarefas="10"
+                            class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:border-yellow-500"
+                        >
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-2"
+                            >
+                                <span
+                                    class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 px-2 py-1 rounded"
+                                    >Desenvolvimento</span
+                                >
+                                <span
+                                    class="prioridade text-xs text-slate-500 dark:text-slate-400"
+                                    >Prioridade: Alta</span
+                                >
+                            </div>
+                            <h3
+                                class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200"
+                            >
+                                Aplicativo mobile
+                            </h3>
+                            <p
+                                class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word"
+                            >
+                                Desenvolver as telas principais do aplicativo.
+                            </p>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between gap-2 text-sm mb-2"
+                                >
+                                    <span class="status-projeto"
+                                        >Em andamento</span
+                                    >
+                                    <span class="porcentagem">40%</span>
+                                </div>
+                                <div
+                                    class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
+                                    role="progressbar"
+                                    aria-label="Progresso de Aplicativo mobile"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="40"
+                                >
+                                    <div
+                                        class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
+                                        style="width: 40%"
+                                    ></div>
+                                </div>
+                                <p
+                                    class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2"
+                                >
+                                    10 tarefas pendentes
+                                </p>
+                            </div>
+                            <div
+                                class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400"
+                            >
+                                <span class="responsavel">Pedro Lima</span>
+                                <span class="prazo">Prazo: 10/12/2026</span>
+                            </div>
+                        </article>
+                        <article
+                            data-status="andamento"
+                            data-categoria="Marketing"
+                            data-tarefas="2"
+                            class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:border-yellow-500"
+                        >
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-2"
+                            >
+                                <span
+                                    class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 px-2 py-1 rounded"
+                                    >Marketing</span
+                                >
+                                <span
+                                    class="prioridade text-xs text-slate-500 dark:text-slate-400"
+                                    >Prioridade: Média</span
+                                >
+                            </div>
+                            <h3
+                                class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200"
+                            >
+                                Campanha de divulgação
+                            </h3>
+                            <p
+                                class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word"
+                            >
+                                Preparar os materiais de divulgação da empresa.
+                            </p>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between gap-2 text-sm mb-2"
+                                >
+                                    <span class="status-projeto"
+                                        >Em andamento</span
+                                    >
+                                    <span class="porcentagem">80%</span>
+                                </div>
+                                <div
+                                    class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
+                                    role="progressbar"
+                                    aria-label="Progresso de Campanha de divulgação"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="80"
+                                >
+                                    <div
+                                        class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
+                                        style="width: 80%"
+                                    ></div>
+                                </div>
+                                <p
+                                    class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2"
+                                >
+                                    2 tarefas pendentes
+                                </p>
+                            </div>
+                            <div
+                                class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400"
+                            >
+                                <span class="responsavel">Julia Alves</span>
+                                <span class="prazo">Prazo: 05/11/2026</span>
+                            </div>
+                        </article>
+                        <article
+                            data-status="concluido"
+                            data-categoria="Desenvolvimento"
+                            data-tarefas="0"
+                            class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:border-yellow-500"
+                        >
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-2"
+                            >
+                                <span
+                                    class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 px-2 py-1 rounded"
+                                    >Desenvolvimento</span
+                                >
+                                <span
+                                    class="prioridade text-xs text-slate-500 dark:text-slate-400"
+                                    >Prioridade: Média</span
+                                >
+                            </div>
+                            <h3
+                                class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200"
+                            >
+                                Portal de atendimento
+                            </h3>
+                            <p
+                                class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word"
+                            >
+                                Criar um portal para atendimento aos clientes.
+                            </p>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between gap-2 text-sm mb-2"
+                                >
+                                    <span class="status-projeto"
+                                        >Concluído</span
+                                    >
+                                    <span class="porcentagem">100%</span>
+                                </div>
+                                <div
+                                    class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
+                                    role="progressbar"
+                                    aria-label="Progresso de Portal de atendimento"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="100"
+                                >
+                                    <div
+                                        class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
+                                        style="width: 100%"
+                                    ></div>
+                                </div>
+                                <p
+                                    class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2"
+                                >
+                                    0 tarefas pendentes
+                                </p>
+                            </div>
+                            <div
+                                class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400"
+                            >
+                                <span class="responsavel">Lucas Melo</span>
+                                <span class="prazo">Prazo: 05/10/2026</span>
+                            </div>
+                        </article>
+                        <article
+                            data-status="andamento"
+                            data-categoria="Operações"
+                            data-tarefas="7"
+                            class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:border-yellow-500"
+                        >
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-2"
+                            >
+                                <span
+                                    class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 px-2 py-1 rounded"
+                                    >Operações</span
+                                >
+                                <span
+                                    class="prioridade text-xs text-slate-500 dark:text-slate-400"
+                                    >Prioridade: Baixa</span
+                                >
+                            </div>
+                            <h3
+                                class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200"
+                            >
+                                Treinamento da equipe
+                            </h3>
+                            <p
+                                class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word"
+                            >
+                                Organizar os materiais de treinamento dos
+                                funcionários.
+                            </p>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between gap-2 text-sm mb-2"
+                                >
+                                    <span class="status-projeto"
+                                        >Em andamento</span
+                                    >
+                                    <span class="porcentagem">30%</span>
+                                </div>
+                                <div
+                                    class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
+                                    role="progressbar"
+                                    aria-label="Progresso de Treinamento da equipe"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="30"
+                                >
+                                    <div
+                                        class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
+                                        style="width: 30%"
+                                    ></div>
+                                </div>
+                                <p
+                                    class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2"
+                                >
+                                    7 tarefas pendentes
+                                </p>
+                            </div>
+                            <div
+                                class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400"
+                            >
+                                <span class="responsavel">Marina Souza</span>
+                                <span class="prazo">Prazo: 15/11/2026</span>
+                            </div>
+                        </article>
+                        <article
+                            data-status="concluido"
+                            data-categoria="Design"
+                            data-tarefas="0"
+                            class="projeto group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:border-yellow-500"
+                        >
+                            <div
+                                class="flex flex-wrap items-center justify-between gap-2"
+                            >
+                                <span
+                                    class="categoria text-xs font-medium text-yellow-200 dark:text-yellow-300 bg-yellow-700 px-2 py-1 rounded"
+                                    >Design</span
+                                >
+                                <span
+                                    class="prioridade text-xs text-slate-500 dark:text-slate-400"
+                                    >Prioridade: Média</span
+                                >
+                            </div>
+                            <h3
+                                class="nome-projeto text-lg font-bold wrap-break-word group-hover:text-yellow-600 dark:group-hover:text-yellow-200 transition duration-200"
+                            >
+                                Identidade visual
+                            </h3>
+                            <p
+                                class="descricao text-sm text-slate-500 dark:text-slate-400 wrap-break-word"
+                            >
+                                Atualizar o logotipo e as cores da empresa.
+                            </p>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between gap-2 text-sm mb-2"
+                                >
+                                    <span class="status-projeto"
+                                        >Concluído</span
+                                    >
+                                    <span class="porcentagem">100%</span>
+                                </div>
+                                <div
+                                    class="progresso h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"
+                                    role="progressbar"
+                                    aria-label="Progresso de Identidade visual"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="100"
+                                >
+                                    <div
+                                        class="barra-progresso h-full bg-yellow-700 rounded-full transition-all duration-300"
+                                        style="width: 100%"
+                                    ></div>
+                                </div>
+                                <p
+                                    class="tarefas text-xs text-slate-500 dark:text-slate-400 mt-2"
+                                >
+                                    0 tarefas pendentes
+                                </p>
+                            </div>
+                            <div
+                                class="border-t border-slate-200 dark:border-slate-700 pt-3 flex flex-wrap justify-between gap-2 text-xs text-slate-500 dark:text-slate-400"
+                            >
+                                <span class="responsavel">Ana Costa</span>
+                                <span class="prazo">Prazo: 01/10/2026</span>
+                            </div>
+                        </article>
+                    </div>
+                    <p
+                        id="semResultados"
+                        hidden
+                        class="text-center p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700"
+                    >
+                        Nenhum projeto encontrado.
+                    </p>
+                </section>
+                <footer
+                    class="text-xs text-slate-500 dark:text-slate-400 mt-8 pt-4 border-t border-slate-200 dark:border-slate-700"
+                >
+                    TechFlow - Checkpoint 5 | FrontEnd Design
+                </footer>
+            </main>
         </div>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Preencha todos os campos para cadastrar o projeto.
-        </p>
-        <form id="formProjeto" novalidate>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="sm:col-span-2">
-                    <label for="nome" class="block text-sm font-medium mb-1">Nome</label>
-                    <input id="nome" name="nome" type="text" maxlength="80" required aria-describedby="erro-nome"
-                        class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                    <p id="erro-nome" class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"></p>
-                </div>
-                <div class="">
-                    <label for="responsavel" class="block text-sm font-medium mb-1">Responsável</label>
-                    <input id="responsavel" name="responsavel" type="text" maxlength="80" required
-                        aria-describedby="erro-responsavel"
-                        class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                    <p id="erro-responsavel" class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"></p>
-                </div>
-                <div class="">
-                    <label for="categoria" class="block text-sm font-medium mb-1">Categoria</label>
-                    <select id="categoria" name="categoria" required aria-describedby="erro-categoria"
-                        class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                        <option value="">Selecione</option>
-                        <option>Design</option>
-                        <option>Desenvolvimento</option>
-                        <option>Marketing</option>
-                        <option>Operações</option>
-                    </select>
-                    <p id="erro-categoria" class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"></p>
-                </div>
-                <div class="">
-                    <label for="prioridade" class="block text-sm font-medium mb-1">Prioridade</label>
-                    <select id="prioridade" name="prioridade" required aria-describedby="erro-prioridade"
-                        class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                        <option value="">Selecione</option>
-                        <option>Baixa</option>
-                        <option>Média</option>
-                        <option>Alta</option>
-                    </select>
-                    <p id="erro-prioridade" class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"></p>
-                </div>
-                <div class="">
-                    <label for="prazo" class="block text-sm font-medium mb-1">Prazo</label>
-                    <input id="prazo" name="prazo" type="date" required aria-describedby="erro-prazo"
-                        class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200">
-                    <p id="erro-prazo" class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"></p>
-                </div>
-                <div class="sm:col-span-2">
-                    <label for="descricao" class="block text-sm font-medium mb-1">Descrição</label>
-                    <textarea id="descricao" name="descricao" rows="3" maxlength="500" required
-                        aria-describedby="erro-descricao"
-                        class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"></textarea>
-                    <p id="erro-descricao" class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"></p>
-                </div>
-            </div>
-            <p id="mensagemFormulario" role="status" class="text-sm text-red-600 dark:text-red-400 my-3"></p>
-            <div class="flex justify-end gap-2 mt-4">
-                <button id="cancelarProjeto" type="button"
-                    class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600">Cancelar</button>
-                <button id="salvarProjeto" type="submit"
-                    class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-yellow-600 hover:bg-yellow-700 text-white">Cadastrar</button>
-            </div>
-        </form>
-    </dialog>
 
-    <p id="mensagemSucesso" hidden role="status"
-        class="fixed bottom-4 left-4 right-4 sm:left-auto sm:max-w-sm bg-emerald-700 text-white rounded-lg p-4 shadow-lg z-50">
-    </p>
-    <noscript>
-        <p class="p-4 bg-red-700 text-white">Ative o JavaScript para utilizar as interações do dashboard.</p>
-    </noscript>
-    <script type="module" src="/js/app.js"></script>
-</body>
+        <dialog
+            id="modalProjeto"
+            aria-labelledby="tituloModal"
+            class="w-[calc(100%-2rem)] max-w-xl p-5 sm:p-6 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 shadow-xl backdrop:bg-black/50"
+        >
+            <div class="flex items-center justify-between gap-3 mb-4">
+                <h2 id="tituloModal" class="text-xl font-bold">Novo projeto</h2>
+                <button
+                    id="fecharModal"
+                    type="button"
+                    aria-label="Fechar formulário"
+                    class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700"
+                >
+                    ✕
+                </button>
+            </div>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                Preencha todos os campos para cadastrar o projeto.
+            </p>
+            <form id="formProjeto" novalidate>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="sm:col-span-2">
+                        <label for="nome" class="block text-sm font-medium mb-1"
+                            >Nome</label
+                        >
+                        <input
+                            id="nome"
+                            name="nome"
+                            type="text"
+                            maxlength="80"
+                            required
+                            aria-describedby="erro-nome"
+                            class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                        />
+                        <p
+                            id="erro-nome"
+                            class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"
+                        ></p>
+                    </div>
+                    <div class="">
+                        <label
+                            for="responsavel"
+                            class="block text-sm font-medium mb-1"
+                            >Responsável</label
+                        >
+                        <input
+                            id="responsavel"
+                            name="responsavel"
+                            type="text"
+                            maxlength="80"
+                            required
+                            aria-describedby="erro-responsavel"
+                            class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                        />
+                        <p
+                            id="erro-responsavel"
+                            class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"
+                        ></p>
+                    </div>
+                    <div class="">
+                        <label
+                            for="categoria"
+                            class="block text-sm font-medium mb-1"
+                            >Categoria</label
+                        >
+                        <select
+                            id="categoria"
+                            name="categoria"
+                            required
+                            aria-describedby="erro-categoria"
+                            class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                        >
+                            <option value="">Selecione</option>
+                            <option>Design</option>
+                            <option>Desenvolvimento</option>
+                            <option>Marketing</option>
+                            <option>Operações</option>
+                        </select>
+                        <p
+                            id="erro-categoria"
+                            class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"
+                        ></p>
+                    </div>
+                    <div class="">
+                        <label
+                            for="prioridade"
+                            class="block text-sm font-medium mb-1"
+                            >Prioridade</label
+                        >
+                        <select
+                            id="prioridade"
+                            name="prioridade"
+                            required
+                            aria-describedby="erro-prioridade"
+                            class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                        >
+                            <option value="">Selecione</option>
+                            <option>Baixa</option>
+                            <option>Média</option>
+                            <option>Alta</option>
+                        </select>
+                        <p
+                            id="erro-prioridade"
+                            class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"
+                        ></p>
+                    </div>
+                    <div class="">
+                        <label
+                            for="prazo"
+                            class="block text-sm font-medium mb-1"
+                            >Prazo</label
+                        >
+                        <input
+                            id="prazo"
+                            name="prazo"
+                            type="date"
+                            required
+                            aria-describedby="erro-prazo"
+                            class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                        />
+                        <p
+                            id="erro-prazo"
+                            class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"
+                        ></p>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label
+                            for="descricao"
+                            class="block text-sm font-medium mb-1"
+                            >Descrição</label
+                        >
+                        <textarea
+                            id="descricao"
+                            name="descricao"
+                            rows="3"
+                            maxlength="500"
+                            required
+                            aria-describedby="erro-descricao"
+                            class="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+                        ></textarea>
+                        <p
+                            id="erro-descricao"
+                            class="text-xs text-red-600 dark:text-red-400 mt-1 min-h-4"
+                        ></p>
+                    </div>
+                </div>
+                <p
+                    id="mensagemFormulario"
+                    role="status"
+                    class="text-sm text-red-600 dark:text-red-400 my-3"
+                ></p>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button
+                        id="cancelarProjeto"
+                        type="button"
+                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        id="salvarProjeto"
+                        type="submit"
+                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-yellow-600 hover:bg-yellow-700 text-white"
+                    >
+                        Cadastrar
+                    </button>
+                </div>
+            </form>
+        </dialog>
 
+        <p
+            id="mensagemSucesso"
+            hidden
+            role="status"
+            class="fixed bottom-4 left-4 right-4 sm:left-auto sm:max-w-sm bg-emerald-700 text-white rounded-lg p-4 shadow-lg z-50"
+        ></p>
+        <noscript>
+            <p class="p-4 bg-red-700 text-white">
+                Ative o JavaScript para utilizar as interações do dashboard.
+            </p>
+        </noscript>
+        <script type="module" src="/js/app.js"></script>
+    </body>
 </html>
